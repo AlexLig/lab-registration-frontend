@@ -2,7 +2,7 @@
   <div id="app">
     <header>Hello there</header>
     <main>
-      <router-view />
+      <router-view/>
     </main>
   </div>
 </template>
@@ -14,6 +14,11 @@ body,
 #app {
   width: 100vw;
   height: 100vh;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -28,8 +33,7 @@ body,
 
 main {
   overflow-y: auto;
-}
-.content {
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 </style>
