@@ -4,7 +4,14 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    jwt: "1"
+  },
   mutations: {},
-  actions: {}
+  actions: {},
+  getters: {
+    isLoggedIn: state => {
+      return !!state.jwt;
+    }
+  }
 });

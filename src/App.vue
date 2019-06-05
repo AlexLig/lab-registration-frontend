@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <header class="appbar">Hello there</header>
-    <main class="content">
+    <header>Hello there</header>
+    <main>
       <router-view/>
     </main>
   </div>
 </template>
 
-<style lang="scss" >
+<style lang="scss">
 @import "@/assets/styles/normalize.scss";
 html,
 body,
@@ -25,11 +25,11 @@ body,
   display: grid;
   grid-template-rows: 3rem auto;
 }
-.appbar {
-  background-color: blue;
-}
 
-.content {
+main {
   overflow-y: auto;
+}
+.content {
+  margin: 0 auto;
 }
 </style>
