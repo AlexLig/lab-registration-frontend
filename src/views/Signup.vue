@@ -1,11 +1,11 @@
 <template>
   <form class="signup">
-    <input type="text">
-    <input type="text">
-    <input type="text">
-    <input type="text">
-    <input type="text">
-    <input type="email">
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+    <input type="email" />
   </form>
 </template>
 

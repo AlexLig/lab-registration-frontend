@@ -1,7 +1,7 @@
 <template>
   <form class="login">
-    <input type="text">
-    <input type="email">
+    <input type="text" />
+    <input type="email" />
   </form>
 </template>
 
@@ -10,3 +10,4 @@ export default {
   name: "login"
 };
 </script>
+<style lang="scss" scoped></style>
