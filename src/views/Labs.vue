@@ -1,6 +1,6 @@
 <template>
-  <ul>
-    <li class="add-lab">
+  <ul v-if="labs && labs.length">
+    <li class="add-lab" @click="routeToLabReg">
       <p>Προσθήκη εργαστηρίου</p>
       <p class="secondary">Πατήστε για να προσθέσετε εργαστήριο</p>
     </li>
@@ -9,23 +9,21 @@
       <p class="secondary">{{lab.dayIso | isoDayToGreek}} {{lab.startTime}} - {{lab.finishTime}}</p>
     </li>
   </ul>
+  <div v-else>Loading</div>
 </template>
 
 <script>
 export default {
   name: "labs",
-  data() {
-    return {
-      loading: false,
-      error: false
-    };
+  created() {
+    this.fetchLabs();
   },
   methods: {
+    routeToLabReg() {
+      this.$router.push({ name: "labReg" });
+    },
     async fetchLabs() {
-      this.loading = true;
-      const isSucess = await this.$store.dispatch("fetchLabs");
-      this.loading = false;
-      this.error = isSucess;
+      await this.$store.dispatch("fetchLabs");
     }
   },
   computed: {
