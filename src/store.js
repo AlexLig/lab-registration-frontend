@@ -19,7 +19,7 @@ export default new Vuex.Store({
       {
         id: 2,
         capacity: 17,
-        dayIso: 7,
+        dayIso: 2,
         startTime: "15:00",
         finishTime: "17:00",
         course: "Συστήματα Αυτομάτου Ελέγχου"
@@ -27,31 +27,39 @@ export default new Vuex.Store({
       {
         id: 3,
         capacity: 17,
-        dayIso: 5,
+        dayIso: 3,
         startTime: "15:00",
         finishTime: "17:00",
         course: "Ηλεκτρονικά ισχύος"
       },
       {
-        id: 1,
+        id: 4,
         capacity: 12,
-        dayIso: 1,
+        dayIso: 4,
         startTime: "15:00",
         finishTime: "17:00",
         course: "Ανάπτυξη Διαδικτυακών Εφαρμογών"
       },
       {
-        id: 2,
+        id: 5,
         capacity: 17,
-        dayIso: 7,
+        dayIso: 5,
         startTime: "15:00",
         finishTime: "17:00",
         course: "Συστήματα Αυτομάτου Ελέγχου"
       },
       {
-        id: 3,
+        id: 6,
         capacity: 17,
-        dayIso: 5,
+        dayIso: 6,
+        startTime: "15:00",
+        finishTime: "17:00",
+        course: "Ηλεκτρονικά ισχύος"
+      },
+      {
+        id: 7,
+        capacity: 17,
+        dayIso: 7,
         startTime: "15:00",
         finishTime: "17:00",
         course: "Ηλεκτρονικά ισχύος"
