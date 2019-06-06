@@ -5,8 +5,58 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    jwt: "1",
-    user: null
+    jwt: "",
+    user: null,
+    labs: [
+      {
+        id: 1,
+        capacity: 12,
+        dayIso: 1,
+        startTime: "15:00",
+        finishTime: "17:00",
+        course: "Ανάπτυξη Διαδικτυακών Εφαρμογών"
+      },
+      {
+        id: 2,
+        capacity: 17,
+        dayIso: 7,
+        startTime: "15:00",
+        finishTime: "17:00",
+        course: "Συστήματα Αυτομάτου Ελέγχου"
+      },
+      {
+        id: 3,
+        capacity: 17,
+        dayIso: 5,
+        startTime: "15:00",
+        finishTime: "17:00",
+        course: "Ηλεκτρονικά ισχύος"
+      },
+      {
+        id: 1,
+        capacity: 12,
+        dayIso: 1,
+        startTime: "15:00",
+        finishTime: "17:00",
+        course: "Ανάπτυξη Διαδικτυακών Εφαρμογών"
+      },
+      {
+        id: 2,
+        capacity: 17,
+        dayIso: 7,
+        startTime: "15:00",
+        finishTime: "17:00",
+        course: "Συστήματα Αυτομάτου Ελέγχου"
+      },
+      {
+        id: 3,
+        capacity: 17,
+        dayIso: 5,
+        startTime: "15:00",
+        finishTime: "17:00",
+        course: "Ηλεκτρονικά ισχύος"
+      }
+    ]
   },
   mutations: {
     setUser(state, user) {

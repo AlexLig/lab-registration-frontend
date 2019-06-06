@@ -19,6 +19,8 @@ body,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin:0;
+  padding:0;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -29,6 +31,7 @@ body,
 
   display: grid;
   grid-template-rows: 3rem auto;
+  grid-gap: 0.5rem;
 }
 
 main {
