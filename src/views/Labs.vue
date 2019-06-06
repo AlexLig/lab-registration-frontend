@@ -14,6 +14,20 @@
 <script>
 export default {
   name: "labs",
+  data() {
+    return {
+      loading: false,
+      error: false
+    };
+  },
+  methods: {
+    async fetchLabs() {
+      this.loading = true;
+      const isSucess = await this.$store.dispatch("fetchLabs");
+      this.loading = false;
+      this.error = isSucess;
+    }
+  },
   computed: {
     labs() {
       return this.$store.state.labs;

@@ -91,6 +91,9 @@ export default new Vuex.Store({
       commit("setUser", result);
 
       return true;
+    },
+    async fetchLabs({commit}){
+      
     }
   },
   getters: {
