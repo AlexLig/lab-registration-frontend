@@ -4,9 +4,9 @@
       <p>Προσθήκη εργαστηρίου</p>
       <p class="secondary">Πατήστε για να προσθέσετε εργαστήριο</p>
     </li>
-    <li v-for="lab in labs" v-bind:key="lab">
+    <li v-for="lab in labs" v-bind:key="lab.id">
       <p>{{lab.course}}</p>
-      <p class="secondary">{{lab.dayIso}} {{lab.startTime}} - {{lab.finishTime}}</p>
+      <p class="secondary">{{lab.dayIso | isoDayToGreek}} {{lab.startTime}} - {{lab.finishTime}}</p>
     </li>
   </ul>
 </template>
@@ -18,12 +18,27 @@ export default {
     labs() {
       return this.$store.state.labs;
     }
+  },
+  filters: {
+    isoDayToGreek(isoNumber) {
+      const daysToGreek = {
+        1: "Δευτέρα",
+        2: "Τρίτη",
+        3: "Τετάρτη",
+        4: "Πέμπτη",
+        5: "Παρασκευή",
+        6: "Σάββατο",
+        7: "Κυριακή"
+      };
+      return daysToGreek[isoNumber];
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
-ul{
+ul {
   min-width: 320px;
+  width: 22rem;
 }
 li {
   display: flex;
