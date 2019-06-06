@@ -17,7 +17,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async signupStudent({ commit }, student, router) {
+    async signupStudent({ commit }, student) {
       const res = await fetch("/api/register/student", {
         method: "POST",
         body: JSON.stringify(student),
@@ -25,13 +25,14 @@ export default new Vuex.Store({
           "Content-Type": "application/json"
         }
       });
-      console.log(res)
-      // const token = res.headers.get("x-auth-token");
-      // commit("setJwt", token);
-      // // const result = await res.json();
-      // commit("setUser", result);
+      if (res.status >= 400) return false;
 
-      router.push({ name: "labs" });
+      const token = res.headers.get("x-auth-token");
+      commit("setJwt", token);
+      const result = await res.json();
+      commit("setUser", result);
+
+      return true;
     }
   },
   getters: {
