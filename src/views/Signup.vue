@@ -11,7 +11,7 @@ export default {
   },
   methods: {
     handleSubmit(student) {
-      console.log(student);
+      this.$store.dispatch("signupStudent", student, this.$router);
     }
   }
 };
