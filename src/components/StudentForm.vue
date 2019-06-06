@@ -1,10 +1,22 @@
 <template>
   <form id="StudentForm" @submit.prevent="onSubmit">
     <label for="name">Όνομα:</label>
-    <input v-model="name" type="text" name="name" required placeholder="π.χ. Γιάννης Χιοννίδης">
+    <input
+      v-model="name"
+      type="text"
+      name="name"
+      required
+      placeholder="π.χ. Γιάννης Χιοννίδης"
+    />
 
     <label for="am">Αριθμός Μητρώου:</label>
-    <input v-model="am" type="text" name="am" required placeholder="π.χ 31337">
+    <input
+      v-model="am"
+      type="text"
+      name="am"
+      required
+      placeholder="π.χ 31337"
+    />
 
     <label for="email">Email:</label>
     <input
@@ -13,7 +25,7 @@
       name="email"
       required
       placeholder="π.χ ibendtheknee@danny.com"
-    >
+    />
 
     <label for="password">Κωδικός:</label>
     <input
@@ -22,9 +34,9 @@
       name="password"
       required
       placeholder="Είσαγετε τον κωδικό που επιθυμείτε"
-    >
+    />
 
-    <input class="form-button" type="submit" value="Αποθήκευση">
+    <input class="form-button" type="submit" value="Αποθήκευση" />
   </form>
 </template>
 

@@ -10,8 +10,9 @@ export default {
     StudentForm
   },
   methods: {
-    handleSubmit(student) {
-      this.$store.dispatch("signupStudent", student, this.$router);
+    async handleSubmit(student) {
+      const isSuccess = await this.$store.dispatch("signupStudent", student);
+      isSuccess && this.$router.push("labs");
     }
   }
 };
