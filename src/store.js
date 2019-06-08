@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     jwt: "",
     user: null,
-    labs: []
+    labs: [],
+    courses: []
   },
   mutations: {
     setUser(state, user) {

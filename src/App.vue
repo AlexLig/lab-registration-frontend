@@ -19,8 +19,8 @@ body,
 *::before,
 *::after {
   box-sizing: border-box;
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
