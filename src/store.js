@@ -40,12 +40,27 @@ export default new Vuex.Store({
       return true;
     },
     async fetchLabs({ commit }) {
+      // const res = await fetch(
+      //   `/api/labClasses/student/${this.getters.studentID}`,
+      //   {
+      //     method: "GET",
+      //     body: JSON.stringify(student),
+      //     headers: {
+      //       "Content-Type": "application/json"
+      //     }
+      //   }
+      // );
+      // const result = await res.json();
+      // commit("setLabs", result);
       setTimeout(() => commit("setLabs", mockedLabs), 2000);
     }
   },
   getters: {
     isLoggedIn: state => {
       return !!state.jwt;
+    },
+    studentID: state => {
+      return state.user && state.user.student.id;
     }
   }
 });
