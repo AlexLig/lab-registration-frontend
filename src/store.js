@@ -40,19 +40,17 @@ export default new Vuex.Store({
       return true;
     },
     async fetchLabs({ commit }) {
-      // const res = await fetch(
-      //   `/api/labClasses/student/${this.getters.studentID}`,
-      //   {
-      //     method: "GET",
-      //     body: JSON.stringify(student),
-      //     headers: {
-      //       "Content-Type": "application/json"
-      //     }
-      //   }
-      // );
-      // const result = await res.json();
-      // commit("setLabs", result);
-      setTimeout(() => commit("setLabs", mockedLabs), 2000);
+      const res = await fetch(
+        `/api/labClasses/student/${this.state.user.student.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      const result = await res.json();
+      commit("setLabs", result);
     }
   },
   getters: {
@@ -64,62 +62,3 @@ export default new Vuex.Store({
     }
   }
 });
-
-const mockedLabs = [
-  {
-    id: 1,
-    capacity: 12,
-    dayIso: 1,
-    startTime: "15:00",
-    finishTime: "17:00",
-    course: "Ανάπτυξη Διαδικτυακών Εφαρμογών"
-  },
-  {
-    id: 2,
-    capacity: 17,
-    dayIso: 2,
-    startTime: "15:00",
-    finishTime: "17:00",
-    course: "Συστήματα Αυτομάτου Ελέγχου"
-  },
-  {
-    id: 3,
-    capacity: 17,
-    dayIso: 3,
-    startTime: "15:00",
-    finishTime: "17:00",
-    course: "Ηλεκτρονικά ισχύος"
-  },
-  {
-    id: 4,
-    capacity: 12,
-    dayIso: 4,
-    startTime: "15:00",
-    finishTime: "17:00",
-    course: "Ανάπτυξη Διαδικτυακών Εφαρμογών"
-  },
-  {
-    id: 5,
-    capacity: 17,
-    dayIso: 5,
-    startTime: "15:00",
-    finishTime: "17:00",
-    course: "Συστήματα Αυτομάτου Ελέγχου"
-  },
-  {
-    id: 6,
-    capacity: 17,
-    dayIso: 6,
-    startTime: "15:00",
-    finishTime: "17:00",
-    course: "Ηλεκτρονικά ισχύος"
-  },
-  {
-    id: 7,
-    capacity: 17,
-    dayIso: 7,
-    startTime: "15:00",
-    finishTime: "17:00",
-    course: "Ηλεκτρονικά ισχύος"
-  }
-];

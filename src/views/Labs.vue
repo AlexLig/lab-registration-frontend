@@ -1,18 +1,17 @@
 <template>
-  <ul v-if="labs && labs.length">
+  <ul>
     <li class="add-lab" @click="routeToLabReg">
       <p>Προσθήκη εργαστηρίου</p>
       <p class="secondary">Πατήστε για να προσθέσετε εργαστήριο</p>
     </li>
     <li v-for="lab in labs" v-bind:key="lab.id">
-      <p>{{ lab.course }}</p>
+      <p>{{ lab.course.name }}</p>
       <p class="secondary">
         {{ lab.dayIso | isoDayToGreek }} {{ lab.startTime }} -
         {{ lab.finishTime }}
       </p>
     </li>
   </ul>
-  <div v-else>Loading</div>
 </template>
 
 <script>
