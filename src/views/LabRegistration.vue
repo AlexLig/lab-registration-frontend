@@ -1,5 +1,5 @@
 <template>
-  <form action @reset.prevent="goBack">
+  <form action @submit.prevent="registerLab" @reset.prevent="goBack">
     <div class="selections">
       <section>
         <label for="select-course">Βήμα 1: Επιλέξτε μάθημα</label>
@@ -10,19 +10,21 @@
       <section class="lab-selection" v-if="!!selectedCourse">
         <label for="select-course">Βήμα 2: Επιλέξτε εργαστήριο</label>
         <select id="select-course" v-model="selectedLab" v-if="labs && labs.length">
-          <option
-            v-for="lab in labs"
-            v-bind:key="lab.id"
-            :value="lab.id"
-          >{{ lab.dayIso | isoDayToGreek }} {{ lab.startTime | fourDigitsHour }}-{{ lab.finishTime | fourDigitsHour }}</option>
+          <option v-for="lab in labs" v-bind:key="lab.id" :value="lab">
+            {{ lab.dayIso | isoDayToGreek }}
+            {{ lab.startTime | fourDigitsHour }}-{{
+            lab.finishTime | fourDigitsHour
+            }}
+          </option>
         </select>
-        <p v-else>Δέν βρέθηκαν εργαστήρια για το μάθημα {{selectedCourse.name}}</p>
+        <p v-else>Δέν βρέθηκαν εργαστήρια για το μάθημα {{ selectedCourse.name }}</p>
       </section>
     </div>
     <div class="form-buttons">
       <input class="form-button" type="submit" value="Αποθήκευση">
       <input class="form-button" type="reset" value="Ακύρωση">
     </div>
+    <p v-if="error">Κάτι πήγε λάθος</p>
   </form>
 </template>
 
@@ -37,7 +39,8 @@ export default {
       courses: [],
       labs: [],
       selectedCourse: null,
-      selectedLab: null
+      selectedLab: null,
+      error: null
     };
   },
   watch: {
@@ -66,6 +69,22 @@ export default {
       const labs = await res.json();
       this.labs = labs;
     },
+    async registerLab() {
+      const res = await fetch(
+        `/api/labClasses/register/${this.selectedLab.id}/${
+          this.$store.state.user.student.id
+        }`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      if (res.status >= 400) return (this.error = true);
+      this.error = false;
+      this.goBack();
+    },
     goBack() {
       this.$router.go(-1);
     }
@@ -90,7 +109,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped >
+<style lang="scss" scoped>
 @import "@/assets/styles/_form.scss";
 label {
   margin: 1rem 0;
