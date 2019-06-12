@@ -5,7 +5,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    jwt: "",
     user: null,
     labs: [],
     courses: []
@@ -13,9 +12,6 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, user) {
       state.user = user;
-    },
-    setJwt(state, token) {
-      state.jwt = token;
     },
     setLabs(state, labs) {
       state.labs = labs;
@@ -32,12 +28,23 @@ export default new Vuex.Store({
       });
       if (res.status >= 400) return false;
 
-      const token = res.headers.get("x-auth-token");
-      commit("setJwt", token);
       const result = await res.json();
       commit("setUser", result);
 
       return true;
+    },
+    async login({ commit }, loginData) {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify(loginData),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      if (res.status >= 400) return false;
+
+      const result = await res.json();
+      commit("setUser", result);
     },
     async fetchLabs({ commit }) {
       const res = await fetch(
@@ -54,9 +61,6 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    isLoggedIn: state => {
-      return !!state.jwt;
-    },
     studentID: state => {
       return state.user && state.user.student.id;
     }
