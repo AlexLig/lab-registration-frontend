@@ -15,6 +15,9 @@ export default new Vuex.Store({
     },
     setLabs(state, labs) {
       state.labs = labs;
+    },
+    removeLab(state, lab) {
+      state.labs = state.labs.filter(lb => lb.id !== lab.id);
     }
   },
   actions: {
@@ -45,6 +48,7 @@ export default new Vuex.Store({
 
       const result = await res.json();
       commit("setUser", result);
+      return true;
     },
     async fetchLabs({ commit }) {
       const res = await fetch(
@@ -58,6 +62,20 @@ export default new Vuex.Store({
       );
       const result = await res.json();
       commit("setLabs", result);
+    },
+    async unregisterFromLab({ commit }, labID) {
+      const res = await fetch(
+        `/api/labClasses/register/${labID}/${this.state.user.student.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      if (res.status >= 400) return console.log(res);
+      const result = await res.json();
+      commit("removeLab", result);
     }
   },
   getters: {

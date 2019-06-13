@@ -10,6 +10,7 @@
         {{ lab.dayIso | isoDayToGreek }} {{ lab.startTime }} -
         {{ lab.finishTime }}
       </p>
+      <button @click="handleDelete(lab.id)">Διαγραφή</button>
     </li>
   </ul>
 </template>
@@ -26,6 +27,9 @@ export default {
     },
     async fetchLabs() {
       await this.$store.dispatch("fetchLabs");
+    },
+    async handleDelete(labID) {
+      await this.$store.dispatch("unregisterFromLab", labID);
     }
   },
   computed: {
