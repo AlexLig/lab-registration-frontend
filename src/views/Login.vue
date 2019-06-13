@@ -7,7 +7,7 @@
       required
       placeholder="π.χ ikilledmyaunt@ironthrone.com"
       v-model="email"
-    >
+    />
 
     <label for="password">Κωδικός:</label>
     <input
@@ -16,9 +16,9 @@
       required
       placeholder="Είσαγετε τον κωδικό που επιθυμείτε"
       v-model="password"
-    >
+    />
 
-    <input class="form-button" type="submit" value="Είσοδος">
+    <input class="form-button" type="submit" value="Είσοδος" />
   </form>
 </template>
 
