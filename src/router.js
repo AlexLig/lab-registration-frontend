@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-// import store from "./store";
+import store from "./store";
 import Login from "./views/Login.vue";
 import Signup from "./views/Signup.vue";
 import Labs from "./views/Labs.vue";
@@ -11,7 +11,7 @@ Vue.use(Router);
 const router = new Router({
   routes: [
     {
-      path: "/",
+      path: "/login",
       name: "login",
       component: Login
     },
@@ -36,11 +36,11 @@ const router = new Router({
 });
 
 // Todo: protect routes when not loggedin (possibly store is static (imported) should find an other way.)
-// router.beforeEach((to, from, next) => {
-//   const isProtectedRoute = to.matched.some(record => record.meta.requiresAuth);
-//   if (!isProtectedRoute) return next();
-//   if (!store.getters.isLoggedIn) return next("/login");
-//   next();
-// });
+router.beforeEach((to, from, next) => {
+  const isProtectedRoute = to.matched.some(record => record.meta.requiresAuth);
+  if (!isProtectedRoute) return next();
+  if (!store.state.user) return next("/login");
+  next();
+});
 
 export default router;
