@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { getAllCourses, getCourseLabs, registerStudentToLab } from "../api/api";
 export default {
   name: "labRegistration",
   created() {
@@ -61,36 +62,19 @@ export default {
   },
   methods: {
     async fetchCourses() {
-      const res = await fetch("/api/courses", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+      const res = await getAllCourses();
       const courses = await res.json();
       this.courses = courses;
     },
     async fetchLabs(id) {
-      const res = await fetch(`/api/courses/${id}/labs`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+      const res = await getCourseLabs(id);
       const labs = await res.json();
       this.labs = labs;
     },
     async registerLab() {
-      const res = await fetch(
-        `/api/labClasses/register/${this.selectedLab.id}/${
-          this.$store.state.user.student.id
-        }`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
+      const res = await registerStudentToLab(
+        this.selectedLab.id,
+        this.$store.state.user.student.id
       );
       if (res.status >= 400) return (this.error = true);
       this.error = false;
