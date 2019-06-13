@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "labs",
+  name: "studentLabs",
   created() {
     this.fetchLabs();
   },

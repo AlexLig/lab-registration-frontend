@@ -40,7 +40,7 @@ export default {
         email: this.email,
         password: this.password
       });
-      isSuccess && this.$router.push("labs");
+      isSuccess && this.$router.push("studentLabs");
     }
   }
 };

@@ -3,7 +3,7 @@ import Router from "vue-router";
 import store from "./store";
 import Login from "./views/Login.vue";
 import Signup from "./views/Signup.vue";
-import Labs from "./views/Labs.vue";
+import StudentLabs from "./views/StudentLabs.vue";
 import LabRegistration from "./views/LabRegistration.vue";
 
 Vue.use(Router);
@@ -21,9 +21,9 @@ const router = new Router({
       component: Signup
     },
     {
-      path: "/labs",
-      name: "labs",
-      component: Labs,
+      path: "/studentLabs",
+      name: "studentLabs",
+      component: StudentLabs,
       meta: { requiresAuth: true }
     },
     {
