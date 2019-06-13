@@ -1,22 +1,10 @@
 <template>
   <form id="StudentForm" @submit.prevent="onSubmit">
     <label for="name">Όνομα:</label>
-    <input
-      v-model="name"
-      type="text"
-      name="name"
-      required
-      placeholder="π.χ. Γιάννης Χιοννίδης"
-    />
+    <input v-model="name" type="text" name="name" required placeholder="π.χ. Γιάννης Χιοννίδης">
 
     <label for="am">Αριθμός Μητρώου:</label>
-    <input
-      v-model="am"
-      type="text"
-      name="am"
-      required
-      placeholder="π.χ 31337"
-    />
+    <input v-model="am" type="text" name="am" required placeholder="π.χ 31337">
 
     <label for="email">Email:</label>
     <input
@@ -25,7 +13,7 @@
       name="email"
       required
       placeholder="π.χ ibendtheknee@danny.com"
-    />
+    >
 
     <label for="password">Κωδικός:</label>
     <input
@@ -34,9 +22,12 @@
       name="password"
       required
       placeholder="Είσαγετε τον κωδικό που επιθυμείτε"
-    />
+    >
 
-    <input class="form-button" type="submit" value="Αποθήκευση" />
+    <label for="isAdmin">Διαχειριστής:</label>
+    <input type="checkbox" id="isAdmin" v-model="isAdmin">
+
+    <input class="form-button" type="submit" value="Αποθήκευση">
   </form>
 </template>
 
@@ -48,7 +39,8 @@ export default {
       name: null,
       am: null,
       email: null,
-      password: null
+      password: null,
+      isAdmin: null
     };
   },
   methods: {
@@ -58,16 +50,22 @@ export default {
         am: this.am,
         email: this.email,
         password: this.password,
-        isAdmin: false
+        isAdmin: this.isAdmin
       };
       this.$emit("student-submitted", student);
       this.name = null;
       this.am = null;
       this.email = null;
       this.password = null;
+      this.isAdmin = null;
     }
   }
 };
 </script>
 
-<style lang="scss" scoped src="@/assets/styles/_form.scss"></style>
+<style lang="scss" scoped >
+@import "@/assets/styles/_form.scss";
+input[type="checkbox"] {
+  max-width: 2rem;
+}
+</style>
