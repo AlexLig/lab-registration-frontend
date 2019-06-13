@@ -32,11 +32,12 @@ export default {
     };
   },
   methods: {
-    login() {
-      this.$store.dispatch("login", {
+    async login() {
+      const isSuccess = await this.$store.dispatch("login", {
         email: this.email,
         password: this.password
       });
+      isSuccess && this.$router.push("labs");
     }
   }
 };
