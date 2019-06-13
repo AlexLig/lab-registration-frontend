@@ -11,8 +11,8 @@ export default {
   },
   methods: {
     async handleSubmit(student) {
-      const isSuccess = await this.$store.dispatch("signupStudent", student);
-      isSuccess && this.$router.push("studentLabs");
+      const user = await this.$store.dispatch("signupStudent", student);
+      user && this.$router.push("studentLabs");
     }
   }
 };

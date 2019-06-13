@@ -29,17 +29,17 @@ export default new Vuex.Store({
   actions: {
     async signupStudent({ commit }, student) {
       const res = await postUserStudent(student);
-      if (res.status >= 400) return false;
+      if (res.status >= 400) return;
       const result = await res.json();
       commit("setUser", result);
-      return true;
+      return result;
     },
     async login({ commit }, loginData) {
       const res = await login(loginData);
-      if (res.status >= 400) return false;
+      if (res.status >= 400) return;
       const result = await res.json();
       commit("setUser", result);
-      return true;
+      return result;
     },
     async fetchLabs({ commit }) {
       const res = await getStudentLabs(this.state.user.student.id);
