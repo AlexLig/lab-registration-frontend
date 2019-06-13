@@ -5,6 +5,7 @@ import Login from "./views/Login.vue";
 import Signup from "./views/Signup.vue";
 import StudentLabs from "./views/StudentLabs.vue";
 import LabRegistration from "./views/LabRegistration.vue";
+import AdminLabs from "./views/AdminLabs.vue";
 
 Vue.use(Router);
 
@@ -24,6 +25,12 @@ const router = new Router({
       path: "/studentLabs",
       name: "studentLabs",
       component: StudentLabs,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/adminLabs",
+      name: "adminLabs",
+      component: AdminLabs,
       meta: { requiresAuth: true }
     },
     {

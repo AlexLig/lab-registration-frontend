@@ -33,6 +33,14 @@ export async function getAllCourses() {
     }
   });
 }
+export async function getAllLabs() {
+  return fetch("/api/labClasses", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+}
 export async function getCourseLabs(courseID) {
   return fetch(`/api/courses/${courseID}/labs`, {
     method: "GET",
