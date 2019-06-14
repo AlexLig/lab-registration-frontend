@@ -66,3 +66,23 @@ export async function registerStudentToLab(labID, studentID) {
     }
   });
 }
+
+export async function postCourse(course) {
+  return fetch(`/api/courses`, {
+    method: "POST",
+    body: JSON.stringify(course),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+}
+
+export async function postLab(lab) {
+  return fetch(`/api/labClasses`, {
+    method: "POST",
+    body: JSON.stringify(lab),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+}

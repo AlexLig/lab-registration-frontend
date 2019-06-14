@@ -6,6 +6,7 @@ import Signup from "./views/Signup.vue";
 import StudentLabs from "./views/StudentLabs.vue";
 import LabRegistration from "./views/LabRegistration.vue";
 import AdminLabs from "./views/AdminLabs.vue";
+import LabCreation from "./views/LabCreation.vue";
 
 Vue.use(Router);
 
@@ -38,7 +39,14 @@ const router = new Router({
       name: "labReg",
       component: LabRegistration,
       meta: { requiresAuth: true }
-    }
+    },
+    {
+      path: "/labCreation",
+      name: "labCreation",
+      component: LabCreation,
+      meta: { requiresAuth: true }
+    },
+
   ]
 });
 

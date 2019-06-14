@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     routeToNewLab() {
-      this.$router.push({ name: "newLab" });
+      this.$router.push({ name: "labCreation" });
     },
     async fetchLabs() {
       const res = await getAllLabs();
