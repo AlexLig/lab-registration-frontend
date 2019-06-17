@@ -49,6 +49,22 @@ export async function getCourseLabs(courseID) {
     }
   });
 }
+export async function getCourseFull(courseID) {
+  return fetch(`/api/courses/${courseID}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+}
+export async function getLabFull(labID) {
+  return fetch(`/api/labClasses/${labID}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+}
 
 export async function unregisterStudentFromLab(labID, studentID) {
   return fetch(`/api/labClasses/register/${labID}/${studentID}`, {
