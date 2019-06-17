@@ -1,38 +1,50 @@
 <template>
-  <ul>
-    <li class="add-lab" @click="routeToNewLab">
+  <ul v-if="showLabs">
+    <li class="add" @click="routeToNewLab">
       <p>Προσθήκη εργαστηρίου</p>
       <p class="secondary">Πατήστε για να προσθέσετε εργαστήριο</p>
     </li>
-    <li v-for="lab in labs" v-bind:key="lab.id">
-      <p>{{ lab.course.name }}</p>
+    <li v-for="lab in course.labClasses" v-bind:key="lab.id" @click="routeToLab(lab.id)">
+      <p>{{ lab.dayIso | isoDayToGreek }}</p>
       <p class="secondary">
-        {{ lab.dayIso | isoDayToGreek }} {{ lab.startTime }} -
+        {{ lab.startTime }} -
         {{ lab.finishTime }}
       </p>
+    </li>
+  </ul>
+  <ul v-else>
+    <li v-for="student in course.students" v-bind:key="student.id">
+      <p>{{ student.name }}</p>
+      <p class="secondary">{{ student.am }}</p>
     </li>
   </ul>
 </template>
 
 <script>
-import { getAllLabs } from "../api/api";
+import { getCourseFull } from "../api/api";
 export default {
   name: "adminLabs",
   created() {
-    this.fetchLabs();
+    this.fetchCourse();
   },
   data() {
     return {
-      labs: []
+      showLabs: true,
+      course: { students: [], labClasses: [] }
     };
   },
   methods: {
     routeToNewLab() {
-      this.$router.push({ name: "labCreation" });
+      this.$router.push({
+        name: "labCreation"
+      });
     },
-    async fetchLabs() {
-      const res = await getAllLabs();
-      this.labs = await res.json();
+    routeToLab(labID) {
+      this.$router.push({ name: "labInfo", params: { labID } });
+    },
+    async fetchCourse() {
+      const res = await getCourseFull(this.$store.state.selectedCourseID);
+      this.course = await res.json();
     }
   },
   filters: {
@@ -98,7 +110,7 @@ li {
   color: gray;
   margin-top: 0.35rem;
 }
-.add-lab {
+.add {
   position: sticky;
   top: 0;
   border-radius: 4px;
