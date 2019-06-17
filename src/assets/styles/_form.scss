@@ -19,6 +19,10 @@ input {
   padding: 0 1rem;
 }
 
+input[type="reset"] {
+  background-color: lightgray;
+}
+
 .form-button {
   display: block;
   border-radius: 4px;
