@@ -6,7 +6,10 @@ import Signup from "./views/Signup.vue";
 import StudentLabs from "./views/StudentLabs.vue";
 import LabRegistration from "./views/LabRegistration.vue";
 import AdminLabs from "./views/AdminLabs.vue";
+import AllCourses from "./views/AllCourses.vue";
 import LabCreation from "./views/LabCreation.vue";
+import CourseCreation from "./views/CourseCreation.vue";
+import LabInfo from "./views/LabInfo.vue"
 
 Vue.use(Router);
 
@@ -29,6 +32,12 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
+      path: "/allCourses",
+      name: "allCourses",
+      component: AllCourses,
+      meta: { requiresAuth: true }
+    },
+    {
       path: "/adminLabs",
       name: "adminLabs",
       component: AdminLabs,
@@ -46,7 +55,18 @@ const router = new Router({
       component: LabCreation,
       meta: { requiresAuth: true }
     },
-
+    {
+      path: "/labInfo",
+      name: "labInfo",
+      component: LabInfo,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/courseCreation",
+      name: "courseCreation",
+      component: CourseCreation,
+      meta: { requiresAuth: true }
+    }
   ]
 });
 
