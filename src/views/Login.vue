@@ -8,7 +8,7 @@
         required
         placeholder="π.χ ikilledmyaunt@ironthrone.com"
         v-model="email"
-      >
+      />
 
       <label for="password">Κωδικός:</label>
       <input
@@ -17,9 +17,9 @@
         required
         placeholder="Είσαγετε τον κωδικό που επιθυμείτε"
         v-model="password"
-      >
+      />
 
-      <input class="form-button" type="submit" value="Είσοδος">
+      <input class="form-button" type="submit" value="Είσοδος" />
     </form>
     <router-link to="signup">Κάντε εγγραφή εδώ</router-link>
   </div>
@@ -40,7 +40,7 @@ export default {
         email: this.email,
         password: this.password
       });
-      user && this.$router.push(user.isAdmin ? "adminLabs" : "studentLabs");
+      user && this.$router.push(user.isAdmin ? "allCourses" : "studentLabs");
     }
   }
 };
