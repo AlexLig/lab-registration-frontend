@@ -13,7 +13,8 @@ export default new Vuex.Store({
   state: {
     user: null,
     labs: [],
-    courses: []
+    courses: [],
+    selectedCourseID: null
   },
   mutations: {
     setUser(state, user) {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     removeLab(state, lab) {
       state.labs = state.labs.filter(lb => lb.id !== lab.id);
+    },
+    setSelectedCourseID(state, courseID) {
+      state.selectedCourseID = courseID;
     }
   },
   actions: {
