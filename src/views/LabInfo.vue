@@ -1,14 +1,13 @@
 <template>
   <ul v-if="lab">
+    <p v-if="errorMessage">{{errorMessage}}</p>
     <div>
       <p>{{ lab.dayIso | isoDayToGreek }}</p>
       <p class="secondary">
         {{ lab.startTime }} -
         {{ lab.finishTime }}
       </p>
-      <p class="secondary">
-        {{ lab.students.length }}/{{ lab.studentCapacity }}
-      </p>
+      <p class="secondary">{{ lab.students.length }}/{{ lab.studentCapacity }}</p>
     </div>
     <li v-for="student in lab.students" v-bind:key="student.id">
       <p>{{ student.name }}</p>
@@ -26,13 +25,17 @@ export default {
   },
   data() {
     return {
-      lab: null
+      lab: null,
+      errorMessage: ""
     };
   },
   methods: {
     async fetchLab() {
-      const res = await getLabFull(this.$route.params.labID);
-      this.lab = await res.json();
+      const { result, errorMessage } = await getLabFull(
+        this.$route.params.labID
+      );
+      this.lab = result;
+      this.errorMessage = errorMessage;
     }
   },
   filters: {

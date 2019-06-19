@@ -1,104 +1,73 @@
-export async function postUserStudent(student) {
-  return fetch("/api/register/student", {
+async function get(url) {
+  return fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+}
+async function post(url, body) {
+  return fetch(url, {
     method: "POST",
-    body: JSON.stringify(student),
+    body: body ? JSON.stringify(body) : undefined,
     headers: {
       "Content-Type": "application/json"
     }
   });
 }
-export async function login(loginData) {
-  return fetch("/api/login", {
-    method: "POST",
-    body: JSON.stringify(loginData),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-
-export async function getStudentLabs(studentID) {
-  return fetch(`/api/labClasses/student/${studentID}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getAllCourses() {
-  return fetch("/api/courses", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getAllLabs() {
-  return fetch("/api/labClasses", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getCourseLabs(courseID) {
-  return fetch(`/api/courses/${courseID}/labs`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getCourseFull(courseID) {
-  return fetch(`/api/courses/${courseID}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getLabFull(labID) {
-  return fetch(`/api/labClasses/${labID}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-
-export async function unregisterStudentFromLab(labID, studentID) {
-  return fetch(`/api/labClasses/register/${labID}/${studentID}`, {
+async function del(url) {
+  return fetch(url, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
     }
   });
 }
-export async function registerStudentToLab(labID, studentID) {
-  return fetch(`/api/labClasses/register/${labID}/${studentID}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
+
+async function responseBuilder(apiCallBack) {
+  const res = await apiCallBack();
+  const result = await res.json();
+  return result.status && result.status >= 400
+    ? { errorMessage: result.message }
+    : { result };
 }
 
-export async function postCourse(course) {
-  return fetch(`/api/courses`, {
-    method: "POST",
-    body: JSON.stringify(course),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
+export const login = async loginData =>
+  await responseBuilder(() => post("/api/login", loginData));
 
-export async function postLab(lab) {
-  return fetch(`/api/labClasses`, {
-    method: "POST",
-    body: JSON.stringify(lab),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
+export const postUserStudent = async student =>
+  await responseBuilder(() => post("/api/register/student", student));
+
+export const registerStudentToLab = async (labID, studentID) =>
+  await responseBuilder(() =>
+    post(`/api/labClasses/register/${labID}/${studentID}`)
+  );
+
+export const postCourse = async course =>
+  await responseBuilder(() => post("/api/courses", course));
+
+export const postLab = async lab =>
+  await responseBuilder(() => post("/api/labClasses", lab));
+
+export const getStudentLabs = async studentID =>
+  await responseBuilder(() => get(`/api/labClasses/student/${studentID}`));
+
+export const getAllCourses = async () =>
+  await responseBuilder(() => get("/api/courses"));
+
+export const getAllLabs = async () =>
+  await responseBuilder(() => get("/api/labClasses"));
+
+export const getCourseLabs = async courseID =>
+  await responseBuilder(() => get(`/api/courses/${courseID}/labs`));
+
+export const getCourseFull = async courseID =>
+  await responseBuilder(() => get(`/api/courses/${courseID}`));
+
+export const getLabFull = async labID =>
+  await responseBuilder(() => get(`/api/labClasses/${labID}`));
+
+export const unregisterStudentFromLab = async (labID, studentID) =>
+  await responseBuilder(() =>
+    del(`/api/labClasses/register/${labID}/${studentID}`)
+  );

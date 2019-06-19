@@ -32,31 +32,30 @@ export default new Vuex.Store({
   },
   actions: {
     async signupStudent({ commit }, student) {
-      const res = await postUserStudent(student);
-      if (res.status >= 400) return;
-      const result = await res.json();
+      const { result, errorMessage } = await postUserStudent(student);
       commit("setUser", result);
-      return result;
+      return errorMessage ? { errorMessage } : { result, errorMessage };
     },
     async login({ commit }, loginData) {
-      const res = await login(loginData);
-      if (res.status >= 400) return;
-      const result = await res.json();
-      commit("setUser", result);
-      return result;
+      const { result, errorMessage } = await login(loginData);
+      if (!errorMessage) {
+        commit("setUser", result);
+        return { result };
+      }
+      return { errorMessage };
     },
     async fetchLabs({ commit }) {
-      const res = await getStudentLabs(this.state.user.student.id);
-      const result = await res.json();
+      const { result, errorMessage } = await getStudentLabs(
+        this.state.user.student.id
+      );
       commit("setLabs", result);
     },
     async unregisterFromLab({ commit }, labID) {
-      const res = await unregisterStudentFromLab(
+      const { result, errorMessage } = await unregisterStudentFromLab(
         labID,
         this.state.user.student.id
       );
-      if (res.status >= 400) return console.log(res);
-      const result = await res.json();
+      if (errorMessage) return errorMessage;
       commit("removeLab", result);
     }
   }

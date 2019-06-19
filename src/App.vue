@@ -2,7 +2,7 @@
   <div id="app">
     <header>Hello there</header>
     <main>
-      <router-view />
+      <router-view/>
     </main>
   </div>
 </template>
@@ -38,5 +38,9 @@ main {
   overflow-y: auto;
   display: flex;
   justify-content: center;
+}
+
+header {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.3);
 }
 </style>

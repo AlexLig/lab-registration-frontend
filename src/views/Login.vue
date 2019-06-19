@@ -8,7 +8,7 @@
         required
         placeholder="π.χ ikilledmyaunt@ironthrone.com"
         v-model="email"
-      />
+      >
 
       <label for="password">Κωδικός:</label>
       <input
@@ -17,9 +17,9 @@
         required
         placeholder="Είσαγετε τον κωδικό που επιθυμείτε"
         v-model="password"
-      />
-
-      <input class="form-button" type="submit" value="Είσοδος" />
+      >
+      <p v-if="errorMessage">{{errorMessage}}</p>
+      <input class="form-button" type="submit" value="Είσοδος">
     </form>
     <router-link to="signup">Κάντε εγγραφή εδώ</router-link>
   </div>
@@ -31,16 +31,19 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      errorMessage: ""
     };
   },
   methods: {
     async login() {
-      const user = await this.$store.dispatch("login", {
+      const { result, errorMessage } = await this.$store.dispatch("login", {
         email: this.email,
         password: this.password
       });
-      user && this.$router.push(user.isAdmin ? "allCourses" : "studentLabs");
+      result
+        ? this.$router.push(result.isAdmin ? "allCourses" : "studentLabs")
+        : (this.errorMessage = errorMessage);
     }
   }
 };

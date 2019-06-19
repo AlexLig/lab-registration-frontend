@@ -1,23 +1,26 @@
 <template>
-  <ul v-if="showLabs">
-    <li class="add" @click="routeToNewLab">
-      <p>Προσθήκη εργαστηρίου</p>
-      <p class="secondary">Πατήστε για να προσθέσετε εργαστήριο</p>
-    </li>
-    <li v-for="lab in course.labClasses" v-bind:key="lab.id" @click="routeToLab(lab.id)">
-      <p>{{ lab.dayIso | isoDayToGreek }}</p>
-      <p class="secondary">
-        {{ lab.startTime }} -
-        {{ lab.finishTime }}
-      </p>
-    </li>
-  </ul>
-  <ul v-else>
-    <li v-for="student in course.students" v-bind:key="student.id">
-      <p>{{ student.name }}</p>
-      <p class="secondary">{{ student.am }}</p>
-    </li>
-  </ul>
+  <div v-if="errorMessage">{{errorMessage}}</div>
+  <div v-else>
+    <ul v-if="showLabs">
+      <li class="add" @click="routeToNewLab">
+        <p>Προσθήκη εργαστηρίου</p>
+        <p class="secondary">Πατήστε για να προσθέσετε εργαστήριο</p>
+      </li>
+      <li v-for="lab in course.labClasses" v-bind:key="lab.id" @click="routeToLab(lab.id)">
+        <p>{{ lab.dayIso | isoDayToGreek }}</p>
+        <p class="secondary">
+          {{ lab.startTime }} -
+          {{ lab.finishTime }}
+        </p>
+      </li>
+    </ul>
+    <ul v-else>
+      <li v-for="student in course.students" v-bind:key="student.id">
+        <p>{{ student.name }}</p>
+        <p class="secondary">{{ student.am }}</p>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -30,7 +33,8 @@ export default {
   data() {
     return {
       showLabs: true,
-      course: { students: [], labClasses: [] }
+      course: { students: [], labClasses: [] },
+      errorMessage: ""
     };
   },
   methods: {
@@ -43,8 +47,11 @@ export default {
       this.$router.push({ name: "labInfo", params: { labID } });
     },
     async fetchCourse() {
-      const res = await getCourseFull(this.$store.state.selectedCourseID);
-      this.course = await res.json();
+      const { result, errorMessage } = await getCourseFull(
+        this.$store.state.selectedCourseID
+      );
+      this.course = result;
+      this.errorMessage = errorMessage;
     }
   },
   filters: {
