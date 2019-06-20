@@ -38,20 +38,7 @@ export default {
       this.errorMessage = errorMessage;
     }
   },
-  filters: {
-    isoDayToGreek(isoNumber) {
-      const daysToGreek = {
-        1: "Δευτέρα",
-        2: "Τρίτη",
-        3: "Τετάρτη",
-        4: "Πέμπτη",
-        5: "Παρασκευή",
-        6: "Σάββατο",
-        7: "Κυριακή"
-      };
-      return daysToGreek[isoNumber];
-    }
-  }
+  
 };
 </script>
 <style lang="scss" scoped>

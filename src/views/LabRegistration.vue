@@ -72,23 +72,7 @@ export default {
       this.$router.go(-1);
     }
   },
-  filters: {
-    isoDayToGreek(isoNumber) {
-      const daysToGreek = {
-        1: "Δευτέρα",
-        2: "Τρίτη",
-        3: "Τετάρτη",
-        4: "Πέμπτη",
-        5: "Παρασκευή",
-        6: "Σάββατο",
-        7: "Κυριακή"
-      };
-      return daysToGreek[isoNumber];
-    },
-    fourDigitsHour(hour) {
-      return hour.substring(0, 5);
-    }
-  }
+  
 };
 </script>
 
