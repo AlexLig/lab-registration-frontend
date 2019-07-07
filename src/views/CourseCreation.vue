@@ -1,15 +1,10 @@
 <template>
   <form @submit.prevent="submitCourse" @reset.prevent="goBack">
     <label for="starTime">Όνομα Μαθήματος:</label>
-    <input
-      type="text"
-      name="courseName"
-      id="courseName"
-      v-model="courseName"
-      required
-    />
-    <input class="form-button" type="submit" value="Αποθήκευση" />
-    <input class="form-button" type="reset" value="Ακύρωση" />
+    <input type="text" name="courseName" id="courseName" v-model="courseName" required>
+    <p v-if="errorMessage">{{errorMessage}}</p>
+    <input class="form-button" type="submit" value="Αποθήκευση">
+    <input class="form-button" type="reset" value="Ακύρωση">
   </form>
 </template>
 
@@ -20,15 +15,16 @@ export default {
   name: "courseCreation",
   data() {
     return {
-      error: null,
-      courseName: null
+      errorMessage: "",
+      courseName: ""
     };
   },
   methods: {
     async submitCourse() {
-      const res = await postCourse({ name: this.courseName });
-      if (res.status >= 400) return;
-      this.courseName = null;
+      const { result, errorMessage } = await postCourse({
+        name: this.courseName
+      });
+      if (errorMessage) return (this.errorMessage = errorMessage);
       this.goBack();
     },
     goBack() {

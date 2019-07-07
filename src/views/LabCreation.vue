@@ -19,6 +19,7 @@
     <input type="number" name="studentCapacity" id="studentCapacity" v-model="capacity" required>
 
     <div class="form-buttons">
+      <p v-if="errorMessage">{{errorMessage}}</p>
       <input class="form-button" type="submit" value="Αποθήκευση">
       <input class="form-button" type="reset" value="Ακύρωση">
     </div>
@@ -39,39 +40,27 @@ export default {
       selectedDay: null,
       startTime: null,
       finishTime: null,
-      error: null
+
+      errorMessage: ""
     };
   },
   methods: {
     async submitLab() {
-      const res = await postLab({
+      const { errorMessage } = await postLab({
         studentCapacity: this.capacity,
         dayIso: this.selectedDay,
         startTime: this.startTime,
         finishTime: this.finishTime,
         courseId: this.$store.state.selectedCourseID
       });
-      if (res.status >= 400) return;
+      if (errorMessage) return (this.errorMessage = errorMessage);
       this.goBack();
     },
     goBack() {
       this.$router.go(-1);
     }
   },
-  filters: {
-    isoDayToGreek(isoNumber) {
-      const daysToGreek = {
-        1: "Δευτέρα",
-        2: "Τρίτη",
-        3: "Τετάρτη",
-        4: "Πέμπτη",
-        5: "Παρασκευή",
-        6: "Σάββατο",
-        7: "Κυριακή"
-      };
-      return daysToGreek[isoNumber];
-    }
-  }
+  
 };
 </script>
 

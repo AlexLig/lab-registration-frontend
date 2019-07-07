@@ -4,6 +4,7 @@
       <p>Προσθήκη Μαθήματος</p>
       <p class="secondary">Πατήστε για να προσθέσετε νέο μάθημα</p>
     </li>
+    <p v-if="errorMessage">{{errorMessage}}</p>
     <li v-for="course in courses" v-bind:key="course.id" @click="routeToCourseLabs(course.id)">
       <p>{{ course.name }}</p>
     </li>
@@ -19,7 +20,8 @@ export default {
   },
   data() {
     return {
-      courses: []
+      courses: [],
+      errorMessage: ""
     };
   },
   methods: {
@@ -31,8 +33,9 @@ export default {
       this.$router.push({ name: "adminLabs" });
     },
     async fetchCourses() {
-      const res = await getAllCourses();
-      this.courses = await res.json();
+      const { result, errorMessage } = await getAllCourses();
+      this.errorMessage = errorMessage;
+      this.courses = result;
     }
   }
 };

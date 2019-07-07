@@ -1,104 +1,49 @@
-export async function postUserStudent(student) {
-  return fetch("/api/register/student", {
-    method: "POST",
-    body: JSON.stringify(student),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function login(loginData) {
-  return fetch("/api/login", {
-    method: "POST",
-    body: JSON.stringify(loginData),
-    headers: {
-      "Content-Type": "application/json"
-    }
+async function fetchCall(method, url, body, fetchOptions) {
+  return fetch(url, {
+    method,
+    body: body ? JSON.stringify(body) : undefined,
+    ...fetchOptions
   });
 }
 
-export async function getStudentLabs(studentID) {
-  return fetch(`/api/labClasses/student/${studentID}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getAllCourses() {
-  return fetch("/api/courses", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getAllLabs() {
-  return fetch("/api/labClasses", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getCourseLabs(courseID) {
-  return fetch(`/api/courses/${courseID}/labs`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getCourseFull(courseID) {
-  return fetch(`/api/courses/${courseID}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function getLabFull(labID) {
-  return fetch(`/api/labClasses/${labID}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
+async function apiCall(method, url, body, fetchOptions) {
+  const res = await fetchCall(method, url, body, fetchOptions);
+  const result = await res.json();
+  return result.status && result.status >= 400
+    ? { errorMessage: result.message }
+    : { result };
 }
 
-export async function unregisterStudentFromLab(labID, studentID) {
-  return fetch(`/api/labClasses/register/${labID}/${studentID}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
-export async function registerStudentToLab(labID, studentID) {
-  return fetch(`/api/labClasses/register/${labID}/${studentID}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
+export const login = async loginData =>
+  await apiCall("POST", "/api/login", loginData);
 
-export async function postCourse(course) {
-  return fetch(`/api/courses`, {
-    method: "POST",
-    body: JSON.stringify(course),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
+export const postUserStudent = async student =>
+  await apiCall("POST", "/api/register/student", student);
 
-export async function postLab(lab) {
-  return fetch(`/api/labClasses`, {
-    method: "POST",
-    body: JSON.stringify(lab),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-}
+export const registerStudentToLab = async (labID, studentID) =>
+  await apiCall("POST", `/api/labClasses/register/${labID}/${studentID}`);
+
+export const postCourse = async course =>
+  await apiCall("POST", "/api/courses", course);
+
+export const postLab = async lab =>
+  await apiCall("POST", "/api/labClasses", lab);
+
+export const getStudentLabs = async studentID =>
+  await apiCall("GET", `/api/labClasses/student/${studentID}`);
+
+export const getAllCourses = async () => await apiCall("GET", "/api/courses");
+
+export const getAllLabs = async () => await apiCall("GET", "/api/labClasses");
+
+export const getCourseLabs = async courseID =>
+  await apiCall("GET", `/api/courses/${courseID}/labs`);
+
+export const getCourseFull = async courseID =>
+  await apiCall("GET", `/api/courses/${courseID}`);
+
+export const getLabFull = async labID =>
+  await apiCall("GET", `/api/labClasses/${labID}`);
+
+export const unregisterStudentFromLab = async (labID, studentID) =>
+  await apiCall("DELETE", `/api/labClasses/register/${labID}/${studentID}`);

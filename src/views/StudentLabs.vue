@@ -12,6 +12,7 @@
       </p>
       <button @click="handleDelete(lab.id)">Διαγραφή</button>
     </li>
+    <p v-if="errorMessage">{{errorMessage}}</p>
   </ul>
 </template>
 
@@ -21,6 +22,9 @@ export default {
   created() {
     this.fetchLabs();
   },
+  data() {
+    return { errorMessage: "" };
+  },
   methods: {
     routeToLabReg() {
       this.$router.push({ name: "labReg" });
@@ -29,7 +33,11 @@ export default {
       await this.$store.dispatch("fetchLabs");
     },
     async handleDelete(labID) {
-      await this.$store.dispatch("unregisterFromLab", labID);
+      const errorMessage = await this.$store.dispatch(
+        "unregisterFromLab",
+        labID
+      );
+      this.errorMessage = errorMessage;
     }
   },
   computed: {
@@ -37,20 +45,7 @@ export default {
       return this.$store.state.labs;
     }
   },
-  filters: {
-    isoDayToGreek(isoNumber) {
-      const daysToGreek = {
-        1: "Δευτέρα",
-        2: "Τρίτη",
-        3: "Τετάρτη",
-        4: "Πέμπτη",
-        5: "Παρασκευή",
-        6: "Σάββατο",
-        7: "Κυριακή"
-      };
-      return daysToGreek[isoNumber];
-    }
-  }
+  
 };
 </script>
 <style lang="scss" scoped>
