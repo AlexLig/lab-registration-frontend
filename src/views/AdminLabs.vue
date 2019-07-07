@@ -4,7 +4,11 @@
       <p>Προσθήκη εργαστηρίου</p>
       <p class="secondary">Πατήστε για να προσθέσετε εργαστήριο</p>
     </li>
-    <li v-for="lab in course.labClasses" v-bind:key="lab.id" @click="routeToLab(lab.id)">
+    <li
+      v-for="lab in course.labClasses"
+      v-bind:key="lab.id"
+      @click="routeToLab(lab.id)"
+    >
       <p>{{ lab.dayIso | isoDayToGreek }}</p>
       <p class="secondary">
         {{ lab.startTime }} -
