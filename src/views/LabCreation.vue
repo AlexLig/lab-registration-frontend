@@ -3,40 +3,24 @@
     <label for="select-course">Ημέρα:</label>
     <select id="select-course" v-model="selectedDay" required>
       <option v-for="day in days" v-bind:key="day" :value="day">
-        {{ day | isoDayToGreek }}
+        {{
+        day | isoDayToGreek
+        }}
       </option>
     </select>
 
     <label for="starTime">Ώρα έναρξης:</label>
-    <input
-      type="time"
-      name="startTime"
-      id="startTime"
-      v-model="startTime"
-      required
-    />
+    <input type="time" name="startTime" id="startTime" v-model="startTime" required>
 
     <label for="finishTime">Ώρα λήξης:</label>
-    <input
-      type="time"
-      name="finishTime"
-      id="finishTime"
-      v-model="finishTime"
-      required
-    />
+    <input type="time" name="finishTime" id="finishTime" v-model="finishTime" required>
 
     <label for="studentCapacity">Αριθμός φοιτητών:</label>
-    <input
-      type="number"
-      name="studentCapacity"
-      id="studentCapacity"
-      v-model="capacity"
-      required
-    />
+    <input type="number" name="studentCapacity" id="studentCapacity" v-model="capacity" required>
 
     <div class="form-buttons">
-      <input class="form-button" type="submit" value="Αποθήκευση" />
-      <input class="form-button" type="reset" value="Ακύρωση" />
+      <input class="form-button" type="submit" value="Αποθήκευση">
+      <input class="form-button" type="reset" value="Ακύρωση">
     </div>
   </form>
 </template>

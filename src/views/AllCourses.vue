@@ -4,11 +4,7 @@
       <p>Προσθήκη Μαθήματος</p>
       <p class="secondary">Πατήστε για να προσθέσετε νέο μάθημα</p>
     </li>
-    <li
-      v-for="course in courses"
-      v-bind:key="course.id"
-      @click="routeToCourseLabs(course.id)"
-    >
+    <li v-for="course in courses" v-bind:key="course.id" @click="routeToCourseLabs(course.id)">
       <p>{{ course.name }}</p>
     </li>
   </ul>

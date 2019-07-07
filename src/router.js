@@ -9,7 +9,7 @@ import AdminLabs from "./views/AdminLabs.vue";
 import AllCourses from "./views/AllCourses.vue";
 import LabCreation from "./views/LabCreation.vue";
 import CourseCreation from "./views/CourseCreation.vue";
-import LabInfo from "./views/LabInfo.vue";
+import LabInfo from "./views/LabInfo.vue"
 
 Vue.use(Router);
 
